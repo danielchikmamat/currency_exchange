@@ -3,6 +3,7 @@ from typing import Union
 from fastapi import FastAPI
 
 import httpx
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -16,19 +17,25 @@ def read_root():
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
-@app.post("/convert/{source}/{target}/{amount}")
-def convert(source: str, target: str, amount: float):
+class ExchangeRequest(BaseModel):
+    source: str
+    target: str
+    amount: float
+#@app.post("/convert/{source}/{target}/{amount}")
+@app.post("/convert")
+def convert(request: ExchangeRequest):
     #https://api.riksbank.se/swea/v1/CrossRates/{seriedId1}/{seriesId2}/{from}
     #SEKETT, SEKEURPMI, SEKUSDPMI
-    source_currency = seriesId(source)
-    target_currency = seriesId(target)
-    amount = valid_amount(amount)
+    source_currency = seriesId(request.source)
+    target_currency = seriesId(request.target)
+    amount = valid_amount(request.amount)
     url = f"https://api.riksbank.se/swea/v1/CrossRates/{source_currency}/{target_currency}/2025-11-28"
     response = httpx.get(url) #response object
     print(response)
     print(response.json())
     exchange_rate = response.json()[0]["value"]
-    return {"source": source, "target": target, "exchanged_amount": amount*exchange_rate,
+    return {"source": request.source, "target": request.target,
+            "exchanged_amount": amount*exchange_rate,
             "exchange_rate": exchange_rate, "original_amount": amount}
 
 def seriesId(currency:str):
