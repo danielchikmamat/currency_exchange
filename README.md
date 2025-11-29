@@ -21,6 +21,11 @@ Content-Type: application/json
   "amount": 0.2
 }
 
+## local database to remember previous exchange rates
+sqlite3
+keep an exchange history
+reuse exchange rates to save resources
+if new value, we make a new request to external api
 
 ## gitignore tips
 do not upload idea files which are local configurations
