@@ -20,7 +20,10 @@ def read_item(item_id: int, q: Union[str, None] = None):
 def convert(source: str, target: str, amount: float):
     #https://api.riksbank.se/swea/v1/CrossRates/{seriedId1}/{seriesId2}/{from}
     #SEKETT, SEKEURPMI, SEKUSDPMI
-    url = "https://api.riksbank.se/swea/v1/CrossRates/SEKETT/SEKUSDPMI/2025-11-28"
+    source_currency = seriesId(source)
+    target_currency = seriesId(target)
+    amount = valid_amount(amount)
+    url = f"https://api.riksbank.se/swea/v1/CrossRates/{source_currency}/{target_currency}/2025-11-28"
     response = httpx.get(url) #response object
     print(response)
     print(response.json())
@@ -28,3 +31,17 @@ def convert(source: str, target: str, amount: float):
     return {"source": source, "target": target, "exchanged_amount": amount*exchange_rate,
             "exchange_rate": exchange_rate, "original_amount": amount}
 
+def seriesId(currency:str):
+    if currency.lower() == "sek":
+        return "SEKETT"
+    if currency.lower() == "usd":
+        return "SEKUSDPMI"
+    if currency.lower() == "eur":
+        return "SEKEURPMI"
+
+    raise Exception(f"Currency {currency} is not supported")
+
+def valid_amount(amount: float):
+    if amount < 0:
+        raise Exception(f"Amount {amount} is invalid")
+    return amount
