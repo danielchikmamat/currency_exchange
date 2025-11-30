@@ -6,7 +6,7 @@ from fastapi import FastAPI
 import httpx
 from pydantic import BaseModel
 from datetime import date, timedelta
-
+from currency_models import ExchangeRequest
 
 def _latest_bank_day():
 
@@ -42,10 +42,7 @@ def read_root():
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
-class ExchangeRequest(BaseModel):
-    source: str
-    target: str
-    amount: float
+
 #@app.post("/convert/{source}/{target}/{amount}")
 @app.post("/convert")
 def convert(request: ExchangeRequest):
