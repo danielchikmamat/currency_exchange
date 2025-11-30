@@ -1,9 +1,15 @@
+#get request a client may use
+#look up exchange rate
+
 from datetime import date, timedelta
 import httpx
+from fastapi import APIRouter
 
+router = APIRouter()
 
+@router.get("/")
 def latest_bank_day():
-
+    print("latest date started")
     today = date.today()
     two_weeks_back = today - timedelta(days=14)
     print(today)
