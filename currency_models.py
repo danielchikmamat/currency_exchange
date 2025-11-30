@@ -4,3 +4,5 @@ class ExchangeRequest(BaseModel):
     source: str
     target: str
     amount: float
+
+    

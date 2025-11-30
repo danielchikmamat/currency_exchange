@@ -7,7 +7,7 @@ import httpx
 from pydantic import BaseModel
 from datetime import date, timedelta
 from currency_models import ExchangeRequest
-
+from utils import seriesId, valid_amount
 def _latest_bank_day():
 
     today = date.today()
@@ -61,17 +61,4 @@ def convert(request: ExchangeRequest):
             "exchange_rate": exchange_rate, "original_amount": amount,
             "latest_bank_day": latest_bank_day}
 
-def seriesId(currency:str):
-    if currency.lower() == "sek":
-        return "SEKETT"
-    if currency.lower() == "usd":
-        return "SEKUSDPMI"
-    if currency.lower() == "eur":
-        return "SEKEURPMI"
 
-    raise Exception(f"Currency {currency} is not supported")
-
-def valid_amount(amount: float):
-    if amount < 0:
-        raise Exception(f"Amount {amount} is invalid")
-    return amount
