@@ -1,8 +1,17 @@
 # currency_exchange
- 
+
+## application specification
+- exchange a given amount from the pairs sek,usd,euro
+- use the latest available exchange rate upon request
+- store and retrieve exchange history
 
 ## start application
 uvicorn main:app --reload
+
+##run from project root
+python3 -m src.main
+pytest -s
+pytest -s tests/test_convert.py
 
 ## request item
 write in the url http://127.0.0.1:8000/items/itemi
