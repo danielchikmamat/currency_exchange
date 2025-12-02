@@ -1,5 +1,5 @@
-from currency_models import ExchangeRequest
-from utils import seriesId, valid_amount
+from src.currency_models import ExchangeRequest
+from src.utils import seriesId, valid_amount
 
 def test_content(content:ExchangeRequest):
     

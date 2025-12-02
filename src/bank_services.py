@@ -16,6 +16,7 @@ def latest_bank_day():
     print(two_weeks_back)
 
     calendar_interval_url = f"https://api.riksbank.se/swea/v1/CalendarDays/{two_weeks_back}/{today}"
+    print(calendar_interval_url)
     calendar_response = httpx.get(calendar_interval_url)
     calendar_json = calendar_response.json()
 

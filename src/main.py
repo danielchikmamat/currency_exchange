@@ -3,8 +3,8 @@ from typing import Union
 
 from fastapi import FastAPI
 
-from convert import router as convert_router
-from bank_services import router as bank_router
+from src.convert import router as convert_router
+from src.bank_services import router as bank_router
 
 app = FastAPI()
 

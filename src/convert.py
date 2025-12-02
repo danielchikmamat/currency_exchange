@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from currency_models import ExchangeRequest
-from utils import seriesId, valid_amount, latest_bank_day
+from src.currency_models import ExchangeRequest
+from src.utils import seriesId, valid_amount, latest_bank_day
 import httpx
 
 router = APIRouter()
@@ -17,6 +17,7 @@ def convert(request: ExchangeRequest):
     bank_day = latest_bank_day()
     print(bank_day)
     url = f"https://api.riksbank.se/swea/v1/CrossRates/{source_currency}/{target_currency}/{bank_day}"
+    print(url)
     response = httpx.get(url) #response object
     print(response)
     print(response.json())
