@@ -15,7 +15,6 @@ def convert(request: ExchangeRequest):
     target_currency = seriesId(request.target)
     amount = valid_amount(request.amount)
     bank_day = from_today()
-    print(bank_day)
     url = f"https://api.riksbank.se/swea/v1/CrossRates/{source_currency}/{target_currency}/{bank_day}"
     print(url)
     response = httpx.get(url) #response object
