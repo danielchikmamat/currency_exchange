@@ -23,6 +23,11 @@ def latest_bank_day():
 
     raise ValueError("No bank day found")
 
+def from_today():
+    today = date.today()
+    one_weeks_back = today - timedelta(days=7)
+    return one_weeks_back
+
 
 def seriesId(currency:str):
     if currency.lower() == "sek":
