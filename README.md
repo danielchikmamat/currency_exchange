@@ -8,8 +8,9 @@
 ## start application
 uvicorn main:app --reload
 
-##run from project root
-python3 -m src.main
+## run from project root
+source .venv/bin/activate
+python3 -m main
 pytest -s
 pytest -s tests/test_convert.py
 
