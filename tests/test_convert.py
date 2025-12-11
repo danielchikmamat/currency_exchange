@@ -32,7 +32,7 @@ def test_convert_negative_amount():
         response = client.post("/convert", json={
         "source": "sek",
         "target": "usd",
-        "amount": -10
+        "amount": -10, 
         })
     assert "Amount -10.0 is invalid" in str(exc)
 
